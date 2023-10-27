@@ -1,40 +1,47 @@
 import React from "react";
 import styled from "styled-components";
+import disneyImg from "../assets/images/viewers-disney.png";
+import pixarImg from "../assets/images/viewers-pixar.png";
+import marvelImg from "../assets/images/viewers-marvel.png";
+import starwarImg from "../assets/images/viewers-starwars.png";
+import nationalImg from "../assets/images/viewers-national.png";
+import disneyvideo from "../assets/images/videos/1564674844-disney.mp4";
+import pixarvideo from "../assets/images/videos/1564676714-pixar.mp4";
+import marvelvideo from "../assets/images/videos/1564676115-marvel.mp4";
+import starvideo from "../assets/images/videos/1608229455-star-wars.mp4";
+import nationalvideo from "../assets/images/videos/1564676296-national-geographic.mp4";
 
 function Viewers() {
   return (
     <Container>
       <Wrap>
-        <img src="/images/viewers-disney.png" alt="" />
+        <img src={disneyImg} alt="" />
         <video autoPlay={true} loop={true} playsInline={true} muted={true}>
-          <source src="/videos/1564674844-disney.mp4" type="video/mp4" />
+          <source src={disneyvideo} type="video/mp4" />
         </video>
       </Wrap>
       <Wrap>
-        <img src="/images/viewers-pixar.png" alt=""></img>
+        <img src={pixarImg} alt=""></img>
         <video autoPlay={true} loop={true} playsInline={true} muted={true}>
-          <source src="/videos/1564676714-pixar.mp4" type="video/mp4" />
+          <source src={pixarvideo} type="video/mp4" />
         </video>
       </Wrap>
       <Wrap>
-        <img src="/images/viewers-marvel.png" alt=""></img>
+        <img src={marvelImg} alt=""></img>
         <video autoPlay={true} loop={true} playsInline={true} muted={true}>
-          <source src="/videos/1564676115-marvel.mp4" type="video/mp4" />
+          <source src={marvelvideo} type="video/mp4" />
         </video>
       </Wrap>
       <Wrap>
-        <img src="/images/viewers-starwars.png" alt=""></img>
+        <img src={starwarImg} alt=""></img>
         <video autoPlay={true} loop={true} playsInline={true} muted={true}>
-          <source src="/videos/1608229455-star-wars.mp4" type="video/mp4" />
+          <source src={starvideo} type="video/mp4" />
         </video>
       </Wrap>
       <Wrap>
-        <img src="/images/viewers-national.png" alt=""></img>
+        <img src={nationalImg} alt=""></img>
         <video autoPlay={true} loop={true} playsInline={true} muted={true}>
-          <source
-            src="/videos/1564676296-national-geographic.mp4"
-            type="video/mp4"
-          />
+          <source src={nationalvideo} type="video/mp4" />
         </video>
       </Wrap>
     </Container>

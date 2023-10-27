@@ -6,38 +6,45 @@ import Reccomends from "./Reccomends";
 import NewDisney from "./NewDisney";
 import Original from "./Original";
 import Trending from "./Trending";
+import LogoImg from "../assets/images/logo.svg";
+import HomeImg from "../assets/images/home-icon.svg";
+import SearchImg from "../assets/images/search-icon.svg";
+import WatchImg from "../assets/images/watchlist-icon.svg";
+import OriginalImg from "../assets/images/original-icon.svg";
+import MovieImg from "../assets/images/movie-icon.svg";
+import SeriesImg from "../assets/images/series-icon.svg";
 
 function Navbar() {
   return (
     <>
       <NavBar>
         <NavLogo>
-          <img src="/images/logo.svg"></img>
+          <img src={LogoImg}></img>
         </NavLogo>
 
         <NavItems>
           <a href="/home">
-            <img src="/images/home-icon.svg" alt="HOME" />
+            <img src={HomeImg} alt="HOME" />
             <span>HOME</span>
           </a>
           <a href="/search">
-            <img src="/images/search-icon.svg" alt="HOME" />
+            <img src={SearchImg} alt="HOME" />
             <span>search</span>
           </a>
           <a href="/watchlist">
-            <img src="/images/watchlist-icon.svg" alt="HOME" />
+            <img src={WatchImg} alt="HOME" />
             <span>watchlist</span>
           </a>
           <a href="/originals">
-            <img src="/images/original-icon.svg" alt="HOME" />
+            <img src={OriginalImg} alt="HOME" />
             <span>originals</span>
           </a>
           <a href="/Movies">
-            <img src="/images/movie-icon.svg" alt="HOME" />
+            <img src={MovieImg} alt="HOME" />
             <span>Movies</span>
           </a>
           <a href="/Series">
-            <img src="/images/series-icon.svg" alt="HOME" />
+            <img src={SeriesImg} alt="HOME" />
             <span>Series</span>
           </a>
         </NavItems>
