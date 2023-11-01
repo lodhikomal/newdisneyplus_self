@@ -55,8 +55,12 @@ margin-top: 50px;
 padding: 30px 30px 30px 30px;
 display: grid;
 gap: 25px;
-grid-template-columns: repeat(5, minmax(0px, 1fr));
-}`;
+grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+@media (max-width: 768px) {
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+}
+`;
 
 const Wrap = styled.div`
   box-shadow: rgba(0, 0, 0, 0.69) 0px 26px 30px -10px,

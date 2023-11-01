@@ -1,57 +1,67 @@
 import React from "react";
 import styled from "styled-components";
-
+import { selectReccomend } from "../features/detailSlice.js";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 function Reccomends() {
+  const movies = useSelector(selectReccomend);
+  // console.log(movies, "show");
   return (
     <Container>
       <h4>Reccomends For you</h4>
+      <Content>
+        {movies &&
+          movies.map((movie, key) => {
+            return (
+              <>
+                <Wrap key={key}>
+                  {/* {movie.id} */}
 
-      <Wrap>
-        <img
-          src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/87F1DCF36049558159913ADFD18A800DE1121771540033EC3A7651B8FE154CEB/scale?width=400&aspectRatio=1.78&format=jpeg"
-          alt="recommend"
-        ></img>
-
-        <img
-          src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/706C68FF1CEA5A9C2AE0608892C2DF79E4AC1F0DDB4BFF7FE6DAFC36DAFC0286/scale?width=400&aspectRatio=1.78&format=jpeg"
-          alt="recommend"
-        ></img>
-
-        <img
-          src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/C0A883EAB54DDDC924018D08CF4555EE72B3E9A8C214BDADF29CB82B5E2275D7/scale?width=400&aspectRatio=1.78&format=jpeg"
-          alt="recommend"
-        ></img>
-
-        <img
-          src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/01666FAA085FF29B709DB13975E563E5E047DAAFF7D8F331201CB73F3C30027E/scale?width=400&aspectRatio=1.78&format=jpeg"
-          alt="recommend"
-        ></img>
-      </Wrap>
+                  <Link to={`/detail/` + movie.id}>
+                    <img src={movie.cardImg} alt={movie.title}></img>
+                  </Link>
+                </Wrap>
+              </>
+            );
+          })}
+      </Content>
     </Container>
   );
 }
-
+// console.log(movies, "show");
 export default Reccomends;
 
 const Container = styled.div`
-  padding-left: 20px;
-  h4 {
-    text-align: start;
-    padding: 10px;
+  padding-left: 0px 0px 26px;
+  // h4 {
+  //   text-align: start;
+  //   padding: 10px;
+  // }
+`;
+const Content = styled.div`
+  display: grid;
+  grid-gap: 25px;
+  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
 `;
-
 const Wrap = styled.div`
   display: grid;
   gap: 25px;
-  grid-template-columns: repeat(4, 1fr);
+
   margin: auto;
 
   img {
-    height: 150px;
-    width: 300px;
+    inset: 0px;
+    height: 100%;
+    width: 100%;
+    max-width: 300px;
     border-radius: 5px;
     cursor: pointer;
+    object-fit: cover;
 
     &:hover {
       border: 3px solid white;

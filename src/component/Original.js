@@ -1,57 +1,65 @@
 import React from "react";
 import styled from "styled-components";
-
-function Original() {
+import { selectOriginal } from "../features/detailSlice.js";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+function Reccomends() {
+  const movies = useSelector(selectOriginal);
+  console.log(movies, "show");
   return (
     <Container>
-      <h4>Originals</h4>
-
-      <Wrap>
-        <img
-          src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/CC08686E87BDB2D83A46C9608CB2F43018381A82608C380649351A00ED0D2919/badging?width=400&aspectRatio=1.78&format=jpeg&label=originals"
-          alt="original"
-        ></img>
-
-        <img
-          src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/E486A02FA7B60669E77958D4FAE567AA5C9C57344006E1D1ADFC080719545166/badging?width=400&aspectRatio=1.78&format=jpeg&label=originals"
-          alt="original"
-        ></img>
-
-        <img
-          src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/A13BEC78ACF76FC91A94A1595A62A42CC26DFC6259332C74E061ADA379024E5C/badging?width=400&aspectRatio=1.78&format=jpeg&label=originals"
-          alt="original"
-        ></img>
-
-        <img
-          src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/F8D1A6FD00ED479CC5E2E5C3E85F10EB05550748BD3C0FE76756614071968541/badging?width=400&aspectRatio=1.78&format=jpeg&label=originals"
-          alt="original"
-        ></img>
-      </Wrap>
+      <h4>Original</h4>
+      <Content>
+        {movies &&
+          movies.map((movie, key) => {
+            return (
+              <>
+                <Wrap key={key}>
+                  <Link to={`/detail/` + movie.id}>
+                    <img src={movie.cardImg} alt={movie.title}></img>
+                  </Link>
+                </Wrap>
+              </>
+            );
+          })}
+      </Content>
     </Container>
   );
 }
-
-export default Original;
+// console.log(movies, "show");
+export default Reccomends;
 
 const Container = styled.div`
-  padding-left: 20px;
-  h4 {
-    text-align: start;
-    padding: 10px;
+  padding-left: 0px 0px 26px;
+  // h4 {
+  //   text-align: start;
+  //   padding: 10px;
+  // }
+`;
+const Content = styled.div`
+  display: grid;
+  grid-gap: 25px;
+  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
 `;
-
 const Wrap = styled.div`
   display: grid;
   gap: 25px;
-  grid-template-columns: repeat(4, 1fr);
+
   margin: auto;
 
   img {
-    height: 150px;
-    width: 300px;
+    inset: 0px;
+    height: 100%;
+    width: 100%;
+    max-width: 300px;
     border-radius: 5px;
     cursor: pointer;
+    object-fit: cover;
 
     &:hover {
       border: 3px solid white;

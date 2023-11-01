@@ -13,48 +13,116 @@ import WatchImg from "../assets/images/watchlist-icon.svg";
 import OriginalImg from "../assets/images/original-icon.svg";
 import MovieImg from "../assets/images/movie-icon.svg";
 import SeriesImg from "../assets/images/series-icon.svg";
+import { auth, provider } from "../firebase";
+import { signInWithPopup } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+// import { async } from "@firebase/util";
+import { useEffect } from "react";
+import {
+  selectUserName,
+  selectUserPhoto,
+  setUserLoginDetails,
+  setSignOutState,
+} from "../features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 function Navbar() {
+  const dispatch = useDispatch();
+  const userName = useSelector(selectUserName);
+  const userPhoto = useSelector(selectUserPhoto);
+  const navigate = useNavigate();
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        setUser(user);
+        navigate("/home");
+      }
+    });
+  }, [userName]);
+
+  const handleAuthenticate = () => {
+    if (!userName) {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          navigate("/home");
+          const user = result.user;
+          console.log("user signed in", user);
+        })
+        .catch((error) => {
+          console.log("no signin", error);
+        });
+    } else if (userName) {
+      auth
+        .signOut()
+        .then(() => {
+          dispatch(setSignOutState());
+          navigate("/");
+        })
+        .catch((err) => alert(err.message));
+    }
+  };
+
+  const setUser = (user) => {
+    dispatch(
+      setUserLoginDetails({
+        name: user.displayName,
+        email: user.email,
+        photo: user.photoURL,
+      })
+    );
+  };
+
   return (
     <>
       <NavBar>
         <NavLogo>
           <img src={LogoImg}></img>
         </NavLogo>
-
-        <NavItems>
-          <a href="/home">
-            <img src={HomeImg} alt="HOME" />
-            <span>HOME</span>
-          </a>
-          <a href="/search">
-            <img src={SearchImg} alt="HOME" />
-            <span>search</span>
-          </a>
-          <a href="/watchlist">
-            <img src={WatchImg} alt="HOME" />
-            <span>watchlist</span>
-          </a>
-          <a href="/originals">
-            <img src={OriginalImg} alt="HOME" />
-            <span>originals</span>
-          </a>
-          <a href="/Movies">
-            <img src={MovieImg} alt="HOME" />
-            <span>Movies</span>
-          </a>
-          <a href="/Series">
-            <img src={SeriesImg} alt="HOME" />
-            <span>Series</span>
-          </a>
-        </NavItems>
+        {!userName ? (
+          <NavButton onClick={handleAuthenticate}>Login</NavButton>
+        ) : (
+          <>
+            <NavItems>
+              <a href="/home">
+                <img src={HomeImg} alt="HOME" />
+                <span>HOME</span>
+              </a>
+              <a href="/search">
+                <img src={SearchImg} alt="HOME" />
+                <span>search</span>
+              </a>
+              <a href="/watchlist">
+                <img src={WatchImg} alt="HOME" />
+                <span>watchlist</span>
+              </a>
+              <a href="/originals">
+                <img src={OriginalImg} alt="HOME" />
+                <span>originals</span>
+              </a>
+              <a href="/Movies">
+                <img src={MovieImg} alt="HOME" />
+                <span>Movies</span>
+              </a>
+              <a href="/Series">
+                <img src={SeriesImg} alt="HOME" />
+                <span>Series</span>
+              </a>
+            </NavItems>
+            <SignOut>
+              <UserImg src={userPhoto} alt={userName} />
+              <DropDown>
+                <span onClick={handleAuthenticate}>Sign Out</span>
+              </DropDown>
+            </SignOut>
+          </>
+        )}
       </NavBar>
-      <Wrapper />
-      <Viewers />
+
+      {/* <Viewers />
       <Reccomends />
       <NewDisney />
       <Original />
-      <Trending />
+      <Trending /> */}
     </>
   );
 }
@@ -143,6 +211,64 @@ const NavItems = styled.div`
         visibility: visible;
         opacity: 1;
       }
+    }
+  }
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+const NavButton = styled.a`
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 8px 16px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border: 1px solid #f9f9f9;
+  border-radius: 4px;
+  transition: all 0.2s ease 0s;
+
+  &:hover {
+    background-color: #f9f9f9;
+    color: #000;
+    border-color: transparent;
+  }
+`;
+
+const UserImg = styled.img`
+  height: 100%;
+`;
+const DropDown = styled.div`
+  position: absolute;
+  top: 48px;
+  right: 0px;
+  background: rgb(19, 19, 19);
+  border: 1px solid rgba(151, 151, 151, 0.34);
+  border-radius: 4px;
+  box-shadow: rgb(0 0 0 / 50%) 0px 0px 18px 0px;
+  padding: 10px;
+  font-size: 12px;
+  letter-spacing: 3px;
+  width: 100px;
+  opacity: 0;
+`;
+const SignOut = styled.div`
+  position: relative;
+  // height: 48px;
+  width: 48px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+
+  ${UserImg} {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+  }
+
+  &:hover {
+    ${DropDown} {
+      opacity: 1;
+      transition-duration: 1s;
     }
   }
 `;

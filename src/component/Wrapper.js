@@ -19,28 +19,30 @@ function Wrapper() {
     arrows: true,
   };
   return (
-    <Carousel {...settings}>
-      <Wrap>
-        <a>
-          <img src={badgingImg} alt="" />
-        </a>
-      </Wrap>
-      <Wrap>
-        <a>
-          <img src={scaleImg} alt="" />
-        </a>
-      </Wrap>
-      <Wrap>
-        <a>
-          <img src={badagImg} alt="" />
-        </a>
-      </Wrap>
-      <Wrap>
-        <a>
-          <img src={scalesImg} alt="" />
-        </a>
-      </Wrap>
-    </Carousel>
+    <>
+      <Carousel {...settings}>
+        <Wrap>
+          <a>
+            <img src={badgingImg} alt="" />
+          </a>
+        </Wrap>
+        <Wrap>
+          <a>
+            <img src={scaleImg} alt="" />
+          </a>
+        </Wrap>
+        <Wrap>
+          <a>
+            <img src={badagImg} alt="" />
+          </a>
+        </Wrap>
+        <Wrap>
+          <a>
+            <img src={scalesImg} alt="" />
+          </a>
+        </Wrap>
+      </Carousel>
+    </>
   );
 }
 
